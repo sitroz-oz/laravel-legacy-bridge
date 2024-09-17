@@ -1,0 +1,19 @@
+
+/*
+|--------------------------------------------------------------------------
+| Laralib: Load your dependencies
+|--------------------------------------------------------------------------
+|
+| This is where we load your dependencies if they are defined
+| in the \'laralib.requirements\' configuration.
+| This happens before the Laravel application loads,
+| so you can use them in any part of the Laravel application.
+|
+| If the Laralib package was removed
+| these lines will not cause errors, but they are worth removing.
+|
+*/
+
+if (class_exists(\Sitroz\LaraBridge\LaraBridge::class)){
+    \Sitroz\LaraBridge\LaraBridge::init($app);
+}
