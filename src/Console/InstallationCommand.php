@@ -9,7 +9,7 @@ use Symfony\Component\Console\Exception\RuntimeException;
 
 class InstallationCommand extends Command
 {
-    protected $signature = 'laraBridge
+    protected $signature = 'laraBridge:install
                             {--i|install : Install scripts and publish configuration file}
                             {--force : (For installation) Overwrite any existing files}
                             {--r|remove : Remove package (should execute before removing by composer)}
