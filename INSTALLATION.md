@@ -23,9 +23,9 @@
   
 ## UNINSTALL
 
-1. Run artisan remove command
+1. Run artisan remove command and remove package in auto mode or follow the instructions if there is any issues.
     ```CLI
-    php artisan laraBridge:install --remove
+    php artisan laraBridge:remove
     ```
 2. Remove `LaraBridgeServiceProvider::class` from `app.providers` config
 3. Remove package via composer
