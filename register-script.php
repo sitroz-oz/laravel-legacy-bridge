@@ -145,7 +145,10 @@ $codeString = getCodeString($spacesOffset);
 $modifiedConfig = paste_into_position($configContent, $position, $codeString);
 
 $line = getLineNumberAtPosition($configContent, $position);
-echo "The code was pasted to \nFile : " .$appConfigPath. "\nLine : " . ($line+2);
+
+echo "LaraBridgeServiceProvider has been added to the array of your service providers." .
+    "\nFile : " .$appConfigPath.
+    "\nLine : " . ($line+2);
 
 
 file_put_contents($appConfigPath, $modifiedConfig);
@@ -166,3 +169,5 @@ try {
 }
 
 # endregion
+
+echo "\n\n".'Run the next installation command: php artisan laraBridge:install '."\n";
