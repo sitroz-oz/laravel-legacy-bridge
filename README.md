@@ -92,7 +92,10 @@ You can also check `INSTALLATION.md` file with more descriptions.
 - Include it to config
 - Test how it works
 - Try to break while testing
-- Try to write PHPUnit test with full workflow including installation, tests and removing the package. 
+- Try to write PHPUnit test with full workflow including installation, tests and removing the package.
+
+
+- Test with next laravel versions
 
 
 ## Contribution to the project
