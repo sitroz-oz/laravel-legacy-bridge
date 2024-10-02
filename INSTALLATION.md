@@ -19,7 +19,7 @@
    php artisan laraBridge:install
    ```
    
-4. Open `config/laraBridge.php` file and set parameters as you wish
+4. Open `config/laraBridge.php` file and set your old boot files or other parameters as you wish
   
 ## UNINSTALL
 
