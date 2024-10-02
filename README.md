@@ -1,19 +1,20 @@
 # laravel-legacy-bridge ( LaraBridge )
 This package allows you to use all the familiar and powerful functionality of laravel as a library for an existing project.
 
-## Возможности
+## Possibilities
 
-- **Интеграция Laravel**: Использование мощных возможностей Laravel в любом проекте на PHP.
-- **Обработка HTTP-запросов**: Посредством `LaraBridge` можно обрабатывать HTTP-запросы, так как это делает Laravel, достаточно включить файл инициализации.
-- **Включение ваших файлов зависимостей**: Пакет в первую очередь направлен на то, чтобы файлы с вашими функциями были всегда загружены и доступны из любой части: в любом месте Laravel и, конечно, в коде вашего проекта.
+- **Laravel Integration**: Use the power of Laravel in any PHP project.
+- **HTP Request Processing**: With `LaraBridge` you can process HTTP requests the way Laravel does it, just include the initialization file.
+- **Including your dependency files**: The package primarily aims to ensure that your function files are always loaded and accessible from anywhere: anywhere in Laravel and, of course, in your project code.
+- **Does not interfere with standard Laravel behavior**: use public/index.php and artisan as usual
 
 
-- **Автоматическая установка**: В пакет включены скрипты для автоматической регистрации 
-`LaraBridgeServiceProvider` и модификации загрузки Laravel.
-- **Автоматическое удаление**: Вы можете запустить скрипт, который полностью удалит пакет 
-и вернет все модифицированные файлы в исходное состояние.
-- **Проверка и откат изменений**: Скрипты установки и удаления проверяют, успешно ли 
-проходит каждый этап установки и выполняет откат изменений чтобы ваш проект не переставал работать.
+- **Automatic installation**: The package includes scripts for automatic registration 
+`LaraBridgeServiceProvider` and Laravel loading modifications.
+- **Automatic removal**: You can run a script that will completely remove the package 
+and will return all modified files to their original state.
+- **Verifying and Rolling Back Changes**: Installation and uninstallation scripts check whether the 
+goes through each stage of installation and rolls back changes so that your project does not stop working.
 
 ## Requirements
 
@@ -48,28 +49,59 @@ This package allows you to use all the familiar and powerful functionality of la
    to your boot file, protection against recursive includes is configured here.
 
 
-## Использование
-Например ваш проект лежит в папке
-`/path1/path2/my-project`, тогда 
-- установите laravel рядом, в `/path1/path2/laravel` не важно как будет назваться папка с проектом.
+## Usage
 
-- Установите и настройте пакет laravel-legacy-bridge используя composer в `/path1/path2/laravel`
-- Создайте файл `/path1/path2/my-project/bridgeExample.php`
-    ```PHP
+Suppose your project is located in the `/path1/path2/my-project` directory. Follow these steps:
+
+1. Install Laravel next to your project, for example in the `/path1/path2/laravel` directory. The name of the folder containing Laravel does not matter.
+
+2. Install and configure the `laravel-legacy-bridge` package using Composer in `/path1/path2/laravel`.
+
+3. Create a file `/path1/path2/my-project/bridgeExample.php` with the following content:
+    ```php
     <?php
     
-    include_once __DIR__.'../laravel/bootstrap/init.php';
+    include_once __DIR__ . '/../laravel/bootstrap/init.php';
     
     dump('Hello world from Laravel!');
     ```
-- Вы можете подключать bootstrap/init.php в любом файле, но чтобы сделать это более красиво и ремонтопригодно
-рекомендую определить константу LARAVEL_INIT, которая укажет на этот файл и добавить её в глобальные константы PHP.
+
+4. You can include `bootstrap/init.php` in any file. 
+
+To make this more elegant and maintainable, we recommend defining a `LARAVEL_INIT` constant equal to `path/to/bootstrap/init.php` and add it to the global PHP constants.
+Then your `bridgeExample.php` will be like:
+```php
+<?php
+
+include_once LARAVEL_INIT;
+
+dump('Hello world from Laravel!');
+ ```
+
+## UNINSTALL
+
+Run artisan remove command and remove package in auto mode or follow the instructions if there is any issues.
+```CLI
+php artisan laraBridge:remove
+```
+You can also check `INSTALLATION.md` file with more descriptions.
+
+## TODO
+
+- Create some functions in standalone php file
+- Include it to config
+- Test how it works
+- Try to break while testing
+- Try to write PHPUnit test with full workflow including installation, tests and removing the package.
 
 
-## Вклад в проект
+- Test with next laravel versions
 
-Ваш вклад приветствуется! Пожалуйста, отправляйте pull-реквесты и создавайте issues для улучшения этого пакета.
 
-## Лицензия
+## Contribution to the project
 
-Этот проект лицензирован на условиях MIT. Подробности можно найти в файле LICENSE.
+Your contribution is welcome! Please send pull requests and create issues to improve this package.
+
+## License
+
+This project is licensed under MIT terms. Details can be found in the LICENSE file.
