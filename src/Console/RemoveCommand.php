@@ -40,8 +40,6 @@ class RemoveCommand extends BaseCommand
 
     private function handleRemove()
     {
-        $this->line('Run remove');
-
         $this->handleAppFile();
 
         $this->handleAppConfigFile();
@@ -90,12 +88,11 @@ class RemoveCommand extends BaseCommand
             $this->restoreFromBackUpFile($appFilePath, $backupFilePath);
 
             if ($this->runApplicationTest()){
-                $this->twoColumnDetail('Restore from backup file', '<fg=green;options=bold>DONE</>');
+                $this->twoColumnDetail('Restoration of bootstrap/app.php', '<fg=green;options=bold>DONE</>');
                 return;
-
             }
 
-            $this->twoColumnDetail('Restore from backup file', '<fg=green;options=bold>ERROR</>');
+            $this->twoColumnDetail('Restoration of bootstrap/app.php', '<fg=green;options=bold>ERROR</>');
             file_put_contents($appFilePath, $raw);
 
         } else {
@@ -108,8 +105,8 @@ class RemoveCommand extends BaseCommand
                 "from 'bootstrap/app.php' manually"
             );
 
-            while(!$this->ask('Is it complete?')){
-                if ($this->ask('Break uninstallation (not recommended)?')){
+            while(!$this->confirm('Is it complete?')){
+                if ($this->confirm('Break uninstallation (not recommended)?')){
                     die;
                 }
             }
@@ -128,15 +125,27 @@ class RemoveCommand extends BaseCommand
         $this->newLine();
         $this->line('Removing LaraBridgeServiceProvider from config/app.php');
 
-        $variants = [
-            'Sitroz\LaraBridge\LaraBridgeServiceProvider::class,',
-            'Sitroz\LaraBridge\LaraBridgeServiceProvider::class',
-            'LaraBridgeServiceProvider::class,',
-            'LaraBridgeServiceProvider::class',
-            'use Sitroz\LaraBridge\LaraBridgeServiceProvider;'
-        ];
+        $pattern =
+            '/(\s*\/\*\s*' .
+            '\n\s*\*\s*Package\s*LaraBridge:\s*auto\s*registered\s*provider\s*' .
+            '\n\s*\*\/)?' .
+            '\s*\n\s*Sitroz\\\LaraBridge\\\LaraBridgeServiceProvider::class,?/m';
 
-        $content = str_replace($variants, '', $content);
+        // Удаляем выделенные строки
+        $content = preg_replace($pattern, '', $content);
+
+        if (str_contains($content, 'LaraBridgeServiceProvider::class')){
+            $variants = [
+                'Sitroz\LaraBridge\LaraBridgeServiceProvider::class,',
+                'Sitroz\LaraBridge\LaraBridgeServiceProvider::class',
+                'LaraBridgeServiceProvider::class,',
+                'LaraBridgeServiceProvider::class',
+                'use Sitroz\LaraBridge\LaraBridgeServiceProvider;'
+            ];
+
+            $content = str_replace($variants, '', $content);
+        }
+
         file_put_contents($appConfigFilePath, $content);
 
         if ($this->runApplicationTest()){
@@ -150,8 +159,8 @@ class RemoveCommand extends BaseCommand
         while (str_contains(file_get_contents($appConfigFilePath), 'LaraBridgeServiceProvider::class')){
             $this->error("You need to delete 'LaraBridgeServiceProvider::class' from 'config/app.php' manually");
 
-            while(!$this->ask('Is it complete?')){
-                if ($this->ask('Break uninstallation (not recommended)?')){
+            while(!$this->confirm('Is it complete?')){
+                if ($this->confirm('Break uninstallation (not recommended)?')){
                     die;
                 }
             }
@@ -160,16 +169,18 @@ class RemoveCommand extends BaseCommand
 
     private function removePackageUsingComposer()
     {
-        if (!$this->ask("Would you like to run command 'composer remove laravel-legacy-bridge'?")){
-            $this->line("In this case you need to run 'composer remove laravel-legacy-bridge' later to complete uninstallation");
+        if (!$this->confirm("Would you like to run command 'composer remove sitroz/laravel-legacy-bridge'?")){
+            $this->line("In this case you need to run 'composer remove sitroz/laravel-legacy-bridge' later to complete uninstallation");
             return;
         }
+
+        $this->line('Removing package using composer. Please wait');
 
         // Определяем базовую директорию приложения
         $basePath = base_path();
 
         // Создаем новый процесс для выполнения команды
-        $process = new Process(['composer', 'remove', 'laravel-legacy-bridge']);
+        $process = new Process(['composer', 'remove', 'sitroz/laravel-legacy-bridge']);
         $process->setWorkingDirectory($basePath);
         $process->setTimeout(null);
 
@@ -178,7 +189,7 @@ class RemoveCommand extends BaseCommand
             $process->mustRun();
 
             // Выводим результат выполнения команды
-            $this->line($process->getOutput());
+            $this->line('Package removed successfully');
         } catch (ProcessFailedException $exception) {
             // Выводим сообщение об ошибке
             $this->error('The process has been failed.');

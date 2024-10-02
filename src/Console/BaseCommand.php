@@ -66,8 +66,9 @@ abstract class BaseCommand extends Command
 
         file_put_contents($path, $raw);
         $this->twoColumnDetail(sprintf(
-            'Restore [%s] from backup ',
-            str_replace(base_path().'/', '', realpath($path))
+            'Restore [%s] from backup [%s]',
+            str_replace(base_path().'/', '', realpath($path)),
+            str_replace(base_path().'/', '', realpath($backupFilePath))
         ), '<fg=yellow;options=bold>SUCCESS</>');
 
         if ($this->runApplicationTest()){

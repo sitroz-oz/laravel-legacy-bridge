@@ -5,6 +5,8 @@ namespace Sitroz\LaraBridge;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Sitroz\LaraBridge\Console\InstallationCommand;
+use Sitroz\LaraBridge\Console\RemoveCommand;
+use Sitroz\LaraBridge\Console\TestCommand;
 
 class LaraBridgeServiceProvider extends ServiceProvider
 {
@@ -34,10 +36,20 @@ class LaraBridgeServiceProvider extends ServiceProvider
         $source = realpath($raw = __DIR__.'/../config/laraBridge.php') ?: $raw;
         $this->mergeConfigFrom($source,'laraBridge');
 
-        $this->app->singleton('command.laraBridge.publish', function () {
+        $this->app->singleton('command.laraBridge.install', function () {
             return new InstallationCommand();
         });
+        $this->app->singleton('command.laraBridge.test', function () {
+            return new TestCommand();
+        });
+        $this->app->singleton('command.laraBridge.remove', function () {
+            return new RemoveCommand();
+        });
 
-        $this->commands(['command.laraBridge.publish']);
+        $this->commands([
+            'command.laraBridge.install',
+            'command.laraBridge.test',
+            'command.laraBridge.remove',
+        ]);
     }
 }
