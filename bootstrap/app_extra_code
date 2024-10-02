@@ -4,7 +4,7 @@
 | Laralib: Load your dependencies
 |--------------------------------------------------------------------------
 |
-| This is where we load your dependencies if they are defined
+| This is the place where we load your dependencies if they are defined
 | in the \'laralib.requirements\' configuration.
 | This happens before the Laravel application loads,
 | so you can use them in any part of the Laravel application.

@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * This script is responsible for auto-registering the LaraBridgeServiceProvider in a Laravel application.
+ *
+ * The script performs the following operations:
+ * 1. Checks if the LaraBridgeServiceProvider is already registered.
+ * 2. If not, it finds the appropriate position to insert the provider registration in the `config/app.php` file.
+ * 3. Adds the provider and updates the configuration file.
+ * 4. Verifies if the provider was registered successfully, and if not, rolls back the changes.
+ *
+ * @package laravel-legacy-brigde
+ * @author Oleg Zaitsev [ sitroz@live.ru ]
+ */
+
+
 # region Func
 function after($string, $needle, $offset = 0){
     $pos = mb_strpos($string, $needle, $offset);
