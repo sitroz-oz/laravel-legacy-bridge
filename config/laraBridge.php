@@ -4,6 +4,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Your requirements, what need include before booting laravel application
+    |--------------------------------------------------------------------------
+    |   Provide a list of files that will be included before booting the Laravel application.
+    |   The requirements files are connected along a relative path from root_path, like
+    |       require_once %root_path% / %path/to/requirement1.php%
+    |
+    |   By default, root_path points to the folder above the laravel installation,
+    |   but if you have a different structure, change this.
+    |
+    */
+    'root_path' => base_path('..'),
+    'requirements' => [
+        // path/from/root_path
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Using laravel router to handle your requests.
     |--------------------------------------------------------------------------
     |   If use_router is false Laravel router won't try handle request
@@ -25,23 +42,6 @@ return [
     
     'use_router' => FALSE,
     'rewrite_path_info' => FALSE,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Your requirements, what need include before booting laravel application
-    |--------------------------------------------------------------------------
-    |   Provide a list of files that will be included before booting the Laravel application.
-    |   The requirements files are connected along a relative path from root_path, like
-    |       require_once %root_path% / %path/to/requirement1.php%
-    |
-    |   By default, root_path points to the folder above the laravel installation,
-    |   but if you have a different structure, change this.
-    |
-    */
-    'root_path' => base_path('..'),
-    'requirements' => [
-        // path/from/root_path
-    ],
 
     /*
     |--------------------------------------------------------------------------
