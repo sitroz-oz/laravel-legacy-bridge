@@ -61,7 +61,7 @@ class InstallationCommand extends BaseCommand
             return;
         }
 
-        $backupFilePath = $this->createBackupFile($raw, $path, $realPath);
+        $backupFilePath = $this->createBackupFile($raw, $path);
         $this->modifyAppContent($raw, $path, $realPath);
 
         if ($this->runApplicationTest()){

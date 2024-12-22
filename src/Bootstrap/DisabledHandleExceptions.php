@@ -18,17 +18,6 @@ class DisabledHandleExceptions extends \Illuminate\Foundation\Bootstrap\HandleEx
     public function bootstrap(Application $app)
     {
         // DO NOTHING ^_^
-        // $this->app = $app;
-        //
-        // if (Request::input('withErrors')) {
-        //     error_reporting(-1);
-        //
-        //     set_error_handler([$this, 'handleError']);
-        //
-        //     set_exception_handler([$this, 'handleException']);
-        //
-        //     register_shutdown_function([$this, 'handleShutdown']);
-        // }
     }
 
     /**

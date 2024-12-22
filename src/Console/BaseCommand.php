@@ -17,20 +17,6 @@ abstract class BaseCommand extends Command
         return app()->bound(LaraBridge::BOUND_KEY);
     }
 
-    protected function runLaraBridgeTest()
-    {
-        $command = 'php ' . realpath(base_path('artisan')) . " ".TestCommand::SIGNATURE." --test";
-        exec($command, $output, $resultCode);
-
-        if ($resultCode === 0) {
-            $this->twoColumnDetail("Test Laravel application with LaraBridge", '<fg=green;options=bold>SUCCESS</>');
-            return TRUE;
-        }
-
-        $this->twoColumnDetail("Test Laravel application with LaraBridge", '<fg=red;options=bold>ERROR</>');
-        return FALSE;
-    }
-
     protected function runApplicationTest()
     {
         $command = 'php ' . realpath(base_path('artisan')) . " list";

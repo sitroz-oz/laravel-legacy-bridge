@@ -52,9 +52,9 @@ class LaraBridge
     {
         (new LoadConfiguration())->bootstrap($this->app);
 
-        $projectRoot = config('laralib.root_path');
+        $projectRoot = config('laraBridge.root_path');
         if ($projectRoot){
-            foreach (config('laralib.requirements', []) as $path) {
+            foreach (config('laraBridge.requirements', []) as $path) {
                 require_once $this->join_paths($projectRoot, $path);
             }
         }
@@ -107,7 +107,7 @@ class LaraBridge
 
     private function rewriteServerInfo($request)
     {
-        if (config('laralib.rewrite_path_info', FALSE) !== TRUE){
+        if (config('laraBridge.rewrite_path_info', FALSE) !== TRUE){
             return $request;
         }
 
@@ -119,7 +119,8 @@ class LaraBridge
         }
 
         $request->server->set('REQUEST_URI', $uri);
-        $request->server->set('SCRIPT_NAME', '/index.php');
+        $request->server->set('SCRIPT_NAME', public_path('index.php'));
+        $request->server->set('SCRIPT_FILENAME', public_path('index.php'));
         $request->server->set('PATH_INFO', $pathInfo);
 
         return $request;
