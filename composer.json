@@ -2,7 +2,18 @@
     "name": "sitroz/laravel-legacy-bridge",
     "description": "This package allows you to use all the familiar and powerful functionality of laravel as a library for an existing project",
     "type": "library",
-    "version": "0.2.0",
+    "version": "1.0.0",
+    "keywords": [
+        "laravel",
+        "legacy-bridge",
+        "LaraBridge",
+        "integration",
+        "HTTP request handling",
+        "dependency inclusion",
+        "Laravel 5.4+",
+        "error handling"
+    ],
+    "homepage": "https://github.com/sitroz-oz/laravel-legacy-bridge",
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +21,7 @@
             "email": "sitroz@live.ru"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Sitroz\\LaraBridge\\": "src/"
