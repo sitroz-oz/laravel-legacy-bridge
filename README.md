@@ -10,12 +10,12 @@ This package allows you to use all the familiar and powerful functionality of la
 - **Simple disable error handling**: Laravel error handler is very strong. If you are not sure that your project does not contain any warnings or errors, you can manage it.
 
 
-- **Automatic installation**: The package includes scripts for automatic registration 
-`LaraBridgeServiceProvider` and Laravel loading modifications.
-- **Automatic removal**: You can run a script that will completely remove the package 
-and will return all modified files to their original state.
-- **Verifying and Rolling Back Changes**: Installation and uninstallation scripts check whether the 
-goes through each stage of installation and rolls back changes so that your project does not stop working.
+- **Automatic installation**: The package includes scripts for automatic registration
+  `LaraBridgeServiceProvider` and Laravel loading modifications.
+- **Automatic removal**: You can run a script that will completely remove the package
+  and will return all modified files to their original state.
+- **Verifying and Rolling Back Changes**: Installation and uninstallation scripts check whether the
+  goes through each stage of installation and rolls back changes so that your project does not stop working.
 
 ## Requirements
 
@@ -77,7 +77,7 @@ Here we suppose you have a laravel installation. If laravel is not installed, st
 4. Open `config/laraBridge.php` file and set your old boot files or other parameters as you wish
 
 5. Include `.../laravel/bootstrap/init.php` file in any php file outside the Laravel folder
-   You can also include your boot file in the LaraBridge configuration and include `init.php` 
+   You can also include your boot file in the LaraBridge configuration and include `init.php`
    to your boot file, protection against recursive includes is configured here.
 
 ## UNINSTALL
@@ -125,24 +125,47 @@ So the `smthImportant` won't be done.
 To solve it you can disable that by setting config parameter `laraBridge.handling_exceptions.disabled` to `TRUE`.
 In this case you will see a warning and `smthImportant` be done.
 
-### Enable Parameter 
-However, if you want to use an ErrorHandler, you can choose the `name` and the `secret` in 
+### Enable Parameter
+However, if you want to use an ErrorHandler, you can choose the `name` and the `secret` in
 `laraBridge.handling_exceptions.enable_param` config. Then you can enable handler for a single request you do.
 
 Param usage: `http://example.com/index.php?name=secret`
 
 To protect it from unauthorized use, you can control the configuration value from the ServiceProviders.
- 
+
+
+Using laravel router to handle your requests.
+-------------------------------------------------------------------------
+
+LaraBridge provides the ability to handle HTTP requests to any files through a laravel router if you set `laraBridge.use_router` to `True`.
+
+### How it works
+
+When router is turned on, laravel will try to find matching route.
+In success case Router will handle request, send a response just after "include .../init.php" and will be finished.
+
+Mismatch with registered routes not cause any errors/exceptions.
+The script will continue it's work properly as usual.
+
+There is an extra option `rewrite_path_info`. When it sets to `True` the path from domain to filename will be added to router path.
+The exception to this rule is the `index.php` file: the `/index.php` substring will be ignored.
+
+### Routing examples table
+
+| URL to file with included init.php    | Default Router Path | Router path with 'rewrite_path_info' option |
+|---------------------------------------|---------------------|---------------------------------------------|
+| example.com/index.php                 | /                   | /                                           |
+| example.com/index.php/p1/p2           | /p1/p2              | /p1/p2                                      |
+| example.com/test.php                  | /                   | /test                                       |
+| example.com/test.php/p1/p2            | /p1/p2              | /test/p1/p2                                 | 
+| example.com/dir1/dir2/index.php       | /                   | /dir1/dir2                                  |
+| example.com/dir1/dir2/index.php/p1/p2 | /p1/p2              | /dir1/dir2/p1/p2                            |
+| example.com/dir1/dir2/page.php        | /                   | /dir1/dir2/page                             |
+| example.com/dir1/dir2/page.php/p1/p2  | /p1/p2              | /dir1/dir2/page/p1/p2                       |
 
 ## TODO
 
-- Create some functions in standalone php file
-- Include it to config
-- Test how it works
-- Try to break while testing
 - Try to write PHPUnit test with full workflow including installation, tests and removing the package.
-
-
 - Test with next laravel versions
 
 
