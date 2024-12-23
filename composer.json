@@ -10,7 +10,7 @@
         "integration",
         "HTTP request handling",
         "dependency inclusion",
-        "Laravel 5.4+",
+        "Laravel 5",
         "Laravel 10",
         "error handling"
     ],
