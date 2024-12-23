@@ -11,6 +11,7 @@
         "HTTP request handling",
         "dependency inclusion",
         "Laravel 5.4+",
+        "Laravel 10",
         "error handling"
     ],
     "homepage": "https://github.com/sitroz-oz/laravel-legacy-bridge",
